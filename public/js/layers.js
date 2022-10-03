@@ -22,3 +22,41 @@ export function createSpriteLayer(entities) {
         })
     }
 }
+
+export function createCollisionLayer(level) {
+    const resolvedTiles = []
+
+    const tileResolver = level.tileCollider.tiles
+    const tileSize = tileResolver.tileSize
+
+    const getByIndexOriginal = tileResolver.getByIndex
+    tileResolver.getByIndex = function getByIndexFake(x, y) {
+        resolvedTiles.push({x, y})
+        return getByIndexOriginal.call(tileResolver, x, y)
+    }
+
+    return function drawCollision(context) {
+        context.strokeStyle = 'blue'
+        resolvedTiles.forEach(({x,y}) => {
+            context.beginPath()
+            context.rect(
+                x * tileSize,
+                y * tileSize, 
+                tileSize, tileSize
+                )
+            context.stroke()
+        })
+
+        level.entities.forEach(entity => {
+            context.strokeStyle = 'red'
+            context.beginPath()
+            context.rect(
+                entity.position.x, entity.position.y, 
+                entity.size.x, entity.size.y
+                )
+            context.stroke()
+        })
+
+        resolvedTiles.length = 0
+    }
+}

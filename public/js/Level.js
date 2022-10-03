@@ -4,6 +4,7 @@ import TileCollider from "./TileCollider.js";
 
 export default class Level {
     constructor() {
+        this.gravity = 2000
         this.compositor = new Compositor()
         this.entities = new Set()
         this.tiles = new Matrix()
@@ -14,8 +15,14 @@ export default class Level {
     update(deltaTime) {
         this.entities.forEach(entity => {
             entity.update(deltaTime)
-            
-            this.tileCollider.test(entity)
+
+            entity.position.x += entity.velocity.x * deltaTime
+            this.tileCollider.checkX(entity)
+
+            entity.position.y += entity.velocity.y * deltaTime
+            this.tileCollider.checkY(entity)
+
+            entity.velocity.y += this.gravity * deltaTime
         })
     }
 }
