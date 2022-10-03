@@ -1,7 +1,7 @@
 /** 
  * @module Vector 
  */
-export class Vector {
+export default class Vector {
     /**
      * Create a new Vector with the given coordinates
      * @param {number|Vector|number[]} x - a number for the x value, or a Vector Object, or an array of numbers
