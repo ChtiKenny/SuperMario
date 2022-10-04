@@ -18,10 +18,10 @@ Promise.all([
 
     mario.position.set(64, 64)
 
-    level.compositor.layers.push(
-        createCollisionLayer(level, camera), 
-        createCameraLayer(camera)
-    )
+    // level.compositor.layers.push(
+    //     createCollisionLayer(level, camera), 
+    //     createCameraLayer(camera)
+    // )
 
     level.entities.add(mario)
 
