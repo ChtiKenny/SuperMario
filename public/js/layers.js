@@ -61,7 +61,7 @@ export function createSpriteLayer(entities, width = 64, height = 64) {
     }
 }
 
-export function createCollisionLayer(level, camera) {
+export function createCollisionLayer(level) {
     const resolvedTiles = []
 
     const tileResolver = level.tileCollider.tiles
@@ -73,7 +73,7 @@ export function createCollisionLayer(level, camera) {
         return getByIndexOriginal.call(tileResolver, x, y)
     }
 
-    return function drawCollision(context) {
+    return function drawCollision(context, camera) {
         context.strokeStyle = 'blue'
         resolvedTiles.forEach(({x,y}) => {
             context.beginPath()
@@ -89,8 +89,8 @@ export function createCollisionLayer(level, camera) {
             context.strokeStyle = 'red'
             context.beginPath()
             context.rect(
-                entity.position.x - camera.position.x, 
-                entity.position.y - camera.position.y, 
+                entity.bounds.left - camera.position.x, 
+                entity.bounds.top - camera.position.y, 
                 entity.size.x, entity.size.y
                 )
             context.stroke()
