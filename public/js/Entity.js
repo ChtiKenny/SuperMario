@@ -17,12 +17,18 @@ export class Trait {
         
     }
 
+    collides(us, them){
+
+    }
+
     update() {
-        console.warn('Unhandled update call in Trait')
+
     }
 }
 export default class Entity {
     constructor() {
+        this.canCollide = true
+
         this.position = new Vector(0, 0)
         this.velocity = new Vector(0, 0)
         this.size = new Vector(0, 0)
@@ -44,9 +50,17 @@ export default class Entity {
         })
     }
 
-    update(deltaTime) {
+    collides(candidate) {
         this.traits.forEach(trait => {
-            trait.update(this, deltaTime)
+            trait.collides(this, candidate)
+        })
+    }
+
+    draw() {}
+
+    update(deltaTime, level) {
+        this.traits.forEach(trait => {
+            trait.update(this, deltaTime, level)
         })
 
         this.lifetime += deltaTime

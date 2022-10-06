@@ -4,6 +4,18 @@ import { createLevelLoader } from './loaders/level.js'
 import { loadEntities } from './entities.js'
 import {setupKeyboard} from './input.js'
 import { createCollisionLayer } from './layers.js'
+import PlayerController from './traits/PlayerController.js'
+import Entity from './Entity.js'
+
+function createPlayerEnv(playerEntity) {
+    const playerEnv = new Entity()
+    const playerControl = new PlayerController()
+    playerControl.checkpoint.set(64, 64)
+    playerControl.setPlayer(playerEntity)
+    playerEnv.addTrait(playerControl)
+
+    return playerEnv
+}
 
 async function main(canvas) {
     const context = canvas.getContext('2d')
@@ -14,9 +26,9 @@ async function main(canvas) {
     const camera = new Camera()
 
     const mario = entityFactory.mario()
-    mario.position.set(64, 64)
 
-    level.entities.add(mario)
+    const playerEnv = createPlayerEnv(mario)
+    level.entities.add(playerEnv)
 
     level.compositor.layers.push(createCollisionLayer(level))
 
@@ -28,7 +40,7 @@ async function main(canvas) {
     timer.update = function update(deltaTime) {
         level.update(deltaTime)
 
-        if (mario.position.x > 100) camera.position.x = mario.position.x - 100
+        camera.position.x = Math.max(0, mario.position.x - 100)
 
         level.compositor.draw(context, camera)
     }
