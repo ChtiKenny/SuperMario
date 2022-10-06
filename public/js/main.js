@@ -6,6 +6,7 @@ import {setupKeyboard} from './input.js'
 import { createCollisionLayer } from './layers.js'
 import PlayerController from './traits/PlayerController.js'
 import Entity from './Entity.js'
+import Solid from './traits/Solid.js'
 
 function createPlayerEnv(playerEntity) {
     const playerEnv = new Entity()
@@ -13,6 +14,7 @@ function createPlayerEnv(playerEntity) {
     playerControl.checkpoint.set(64, 64)
     playerControl.setPlayer(playerEntity)
     playerEnv.addTrait(playerControl)
+    playerEnv.addTrait(new Solid())
 
     return playerEnv
 }
