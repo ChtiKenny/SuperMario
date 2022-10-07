@@ -6,10 +6,14 @@ export default class PlayerController extends Trait {
         super('playerController')
         this.checkpoint = new Vector(0 ,0)
         this.player = null
+        this.time = 300
+        this.score = 0
     }
 
     setPlayer(entity) {
         this.player = entity
+
+        this.player.stomper.onStomp = () => this.score += 100
     }
 
     update(entity, deltaTime, level) {
@@ -18,6 +22,8 @@ export default class PlayerController extends Trait {
             this.player.killable.revive()
             this.player.position.set(this.checkpoint)
             level.entities.add(this.player)
+        } else {
+            this.time -= deltaTime * 2
         }
     }
 }

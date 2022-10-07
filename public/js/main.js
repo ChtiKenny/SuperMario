@@ -1,9 +1,11 @@
 import Camera from './Camera.js'
 import Timer from './Timer.js'
 import { createLevelLoader } from './loaders/level.js'
+import { loadFont } from './loaders/font.js'
 import { loadEntities } from './entities.js'
 import {setupKeyboard} from './input.js'
-import { createCollisionLayer } from './layers.js'
+import { createCollisionLayer } from './layers/collision.js'
+import { createDashboardLayer } from './layers/dashboard.js'
 import PlayerController from './traits/PlayerController.js'
 import Entity from './Entity.js'
 import Solid from './traits/Solid.js'
@@ -22,7 +24,10 @@ function createPlayerEnv(playerEntity) {
 async function main(canvas) {
     const context = canvas.getContext('2d')
 
-    const entityFactory = await loadEntities()
+    const [entityFactory, font] = await Promise.all([
+        loadEntities(),
+        loadFont(),
+    ])
     const level = await createLevelLoader(entityFactory)('1-1')
 
     const camera = new Camera()
@@ -33,6 +38,7 @@ async function main(canvas) {
     level.entities.add(playerEnv)
 
     level.compositor.layers.push(createCollisionLayer(level))
+    level.compositor.layers.push(createDashboardLayer(font, playerEnv))
 
     const input = setupKeyboard(mario)
     input.listenTo(window)
