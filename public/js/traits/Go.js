@@ -12,7 +12,7 @@ export default class Go extends Trait {
         this.heading = 1
     }
 
-    update(entity, deltaTime) {
+    update(entity, {deltaTime}) {
         const absX = Math.abs(entity.velocity.x)
         if (this.direction) {
             entity.velocity.x += this.acceleration * deltaTime * this.direction 

@@ -16,7 +16,7 @@ export default class PlayerController extends Trait {
         this.player.stomper.onStomp = () => this.score += 100
     }
 
-    update(entity, deltaTime, level) {
+    update(entity, {deltaTime}, level) {
         if (!level.entities.has(this.player)) {
 
             this.player.killable.revive()

@@ -18,6 +18,7 @@ export default class Stomper extends Trait {
         if (!them.killable || them.killable.dead) return
         if (us.velocity.y > them.velocity.y) {
             this.bounce(us, them)
+            this.sounds.add('stomp')
             this.onStomp(us, them)
         }
     }

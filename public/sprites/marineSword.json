@@ -1,0 +1,50 @@
+{
+    "imageUrl": "/img/marineSword.png",
+
+    "frames": [
+        {
+            "name": "idle-1",
+            "rect": [14, 38, 45, 50]
+        },
+        {
+            "name": "idle-2",
+            "rect": [84, 37, 45, 50]
+        },
+        {
+            "name": "idle-3",
+            "rect" : [148, 38, 45, 50]
+        },
+        {
+            "name": "die-1",
+            "rect": [18, 344, 45, 50]
+        },
+        {
+            "name": "die-2",
+            "rect": [87, 344, 55, 50]
+        },
+        {
+            "name": "dead",
+            "rect" : [152, 344, 60, 50]
+        }
+    ],
+    "animations" : [
+        {
+            "name" : "idle",
+            "frameLength" : 0.15,
+            "frames" : [
+                "idle-1",
+                "idle-2",
+                "idle-3"
+            ]
+        },
+        {
+            "name" : "die",
+            "frameLength" : 0.15,
+            "frames" : [
+                "die-1",
+                "die-2",
+                "dead"
+            ]
+        }
+    ]
+}

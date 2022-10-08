@@ -1,5 +1,6 @@
 import Vector from './Vector.js'
 import BoundingBox from './BoundingBox.js'
+import AudioBoard from './AudioBoard.js'
 
 export const Sides = {
     TOP: Symbol('top'),
@@ -12,6 +13,7 @@ export class Trait {
     constructor(name) {
         this.NAME = name
 
+        this.sounds = new Set()
         this.tasks = []
     }
 
@@ -32,14 +34,21 @@ export class Trait {
 
     }
 
+    playSounds(audioBoard, audioContext) {
+        this.sounds.forEach(name => {
+            audioBoard.playAudio(name, audioContext)
+        })
+
+        this.sounds.clear()
+    }
+
     update() {
 
     }
 }
 export default class Entity {
     constructor() {
-        this.canCollide = true
-
+        this.audio = new AudioBoard()
         this.position = new Vector(0, 0)
         this.velocity = new Vector(0, 0)
         this.size = new Vector(0, 0)
@@ -73,11 +82,12 @@ export default class Entity {
         this.traits.forEach(trait => trait.finalize())
     }
 
-    update(deltaTime, level) {
+    update(gameContext, level) {
         this.traits.forEach(trait => {
-            trait.update(this, deltaTime, level)
+            trait.update(this, gameContext, level)
+            trait.playSounds(this.audio, gameContext.audioContext)
         })
 
-        this.lifetime += deltaTime
+        this.lifetime += gameContext.deltaTime
     }
 }

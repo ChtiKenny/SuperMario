@@ -359,6 +359,10 @@
         {
             "name" : "goomba",
             "position" : [220, 0]
+        },
+        {
+            "name" : "marineSword",
+            "position" : [200, 0]
         }
     ]
 }

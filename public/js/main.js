@@ -25,10 +25,13 @@ async function main(canvas) {
     const context = canvas.getContext('2d')
     context.imageSmoothingEnabled = false
 
+    const audioContext = new AudioContext()
+
     const [entityFactory, font] = await Promise.all([
-        loadEntities(),
+        loadEntities(audioContext),
         loadFont(),
     ])
+
     const level = await createLevelLoader(entityFactory)('1-1')
 
     const camera = new Camera()
@@ -44,10 +47,16 @@ async function main(canvas) {
     const input = setupKeyboard(mario)
     input.listenTo(window)
 
+    const gameContext = {
+        audioContext,
+        deltaTime : null,
+    }
+
     const timer = new Timer(1/60)
 
     timer.update = function update(deltaTime) {
-        level.update(deltaTime)
+        gameContext.deltaTime = deltaTime
+        level.update(gameContext)
 
         camera.position.x = Math.max(0, mario.position.x - 100)
 
@@ -59,4 +68,8 @@ async function main(canvas) {
 
 const canvas = document.getElementById('screen')
 
-main(canvas)
+const start = () => {
+    window.removeEventListener('click', start)
+    main(canvas)
+}
+window.addEventListener('click', start)
