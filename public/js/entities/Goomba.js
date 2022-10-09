@@ -23,8 +23,6 @@ class Behavior extends Trait {
         
         us.pendulumMove.speed = 0
         us.killable.kill()
-        us.velocity.set(0, -200)
-        us.canCollide = false
     }
 }
 

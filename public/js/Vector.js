@@ -18,7 +18,7 @@ export default class Vector {
      * @param {number} y - a number for the y value
      * @returns {Vector}
      */
-    set = (x, y) => {
+    set(x, y) {
         if (x instanceof Vector) {
             this.x = x.x || 0
             this.y = x.y || 0
@@ -39,7 +39,9 @@ export default class Vector {
      * @method
      * @returns {Vector}
      */
-    copy = () => new Vector(this)
+    copy() {
+        return new Vector(this)
+    }
 
     /**
      * Add another vector to the vector
@@ -48,7 +50,7 @@ export default class Vector {
      * @param {number} y - a number for the y value
      * @returns {Vector}
      */
-    add = (x,y) => {
+    add(x,y) {
         if (x instanceof Vector) {
             this.x += x.x || 0
             this.y += x.y || 0
@@ -71,7 +73,7 @@ export default class Vector {
      * @param {number} y - a number for the y value
      * @returns {Vector}
      */
-    subtract = (x,y) => {
+    subtract(x,y) {
         if (x instanceof Vector) {
             this.x -= x.x || 0
             this.y -= x.y || 0
@@ -93,7 +95,7 @@ export default class Vector {
      * @param {number} scaler
      * @returns {Vector}
      */
-    multiply = scaler => {
+    multiply(scaler) {
         if (!(typeof scaler === 'number' && isFinite(scaler))) {
             console.warn(
                 'Vector.multiply:',
@@ -112,7 +114,7 @@ export default class Vector {
      * @param {number} scaler 
      * @returns {Vector}
      */
-    divide = scaler => {
+    divide(scaler) {
         if (!(typeof scaler === 'number' && isFinite(scaler))) {
             console.warn(
                 'Vector.divide:',
@@ -134,7 +136,7 @@ export default class Vector {
      * @method
      * @returns {Vector}
      */
-    normalize = () => {
+    normalize() {
         let length = this.magnitude();
         if (length !== 0) this.multiply(1/length);
         return this;
@@ -146,21 +148,27 @@ export default class Vector {
      * @param {number} magnitude 
      * @returns {vector}
      */
-    setMagnitude = magnitude => this.normalize().multiply(magnitude)
+    setMagnitude( magnitude) {
+        return this.normalize().multiply(magnitude)
+    }
 
     /**
      * Return the magnitude of the vector
      * @method
      * @returns {number}
      */
-    magnitude = () => Math.sqrt(this.magnitudeSquared())
+    magnitude() {
+        return Math.sqrt(this.magnitudeSquared())
+    }
 
     /**
      * Return the squared magnitude of the vector
      * @method
      * @returns {number}
      */
-    magnitudeSquared = () => (this.x * this.x + this.y * this.y)
+    magnitudeSquared() {
+        return (this.x * this.x + this.y * this.y)
+    }
 
     /**
      * Return the dot product between this vector and another
@@ -169,7 +177,7 @@ export default class Vector {
      * @param {number} y - a number for the y value
      * @returns {Vector}
      */
-    dotProduct = (x,y) => {
+    dotProduct(x,y) {
         if (x instanceof Vector) {
             return this.dotProduct(x.x, x.y);
         }
@@ -182,7 +190,9 @@ export default class Vector {
      * @param {Vector} vector 
      * @returns {vector}
      */
-    distance = vector => vector.copy().subtract(this).magnitude()
+    distance(vector) {
+        return vector.copy().subtract(this).magnitude()
+    }
 
     /**
      * Limit the magnitude of the vector by a maximum value
@@ -190,7 +200,7 @@ export default class Vector {
      * @param {number} maximum 
      * @returns {Vector}
      */
-    limit = maximum => {
+    limit(maximum) {
         let magnitudeSquared = this.magnitudeSquared()
         if (magnitudeSquared > maximum*maximum) {
             this.divide(Math.sqrt(magnitudeSquared)).multiply(maximum)
@@ -203,7 +213,9 @@ export default class Vector {
      * @method
      * @returns {number}
      */
-    heading = () => Math.atan2(this.y, this.x)
+    heading() {
+        return Math.atan2(this.y, this.x)
+    }
     
     /**
      * Set the new angle of the Vector
@@ -211,7 +223,7 @@ export default class Vector {
      * @param {number} angle - angle to rotate the vector by (in radians)
      * @returns {Vector}
      */
-    setAngle = angle => {
+    setAngle(angle) {
         let magnitude  = this.magnitude
         this.x = Math.cos(angle) * magnitude
         this.y = Math.sin(angle) * magnitude
@@ -224,7 +236,9 @@ export default class Vector {
      * @param {number} angle - angle to rotate the vector by (in radians)
      * @returns {Vector}
      */
-    rotate = angle => this.setAngle(this.heading + angle)
+    rotate(angle) {
+        return this.setAngle(this.heading + angle)
+    }
 
     /**
      * Return the angle between the vector and another vector
@@ -232,7 +246,7 @@ export default class Vector {
      * @param {Vector} vector 
      * @returns {Vector}
      */
-    angleBetween = vector => {
+    angleBetween(vector) {
         let angle = Math.acos(
             Math.min(1,
                 Math.max(-1, 
@@ -251,7 +265,7 @@ export default class Vector {
      * @param {number} percentage - percentage of the interpolation
      * @returns {Vector}
      */
-    lerp = (x, y, percentage) => {
+    lerp (x, y, percentage) {
         if (x instanceof Vector) return this.lerp(x.x, x.y, y)
 
         this.x += (x - this.x) * percentage || 0
@@ -264,14 +278,18 @@ export default class Vector {
      * @method
      * @returns {string}
      */
-    toString = () => `Vector Object : [${this.x}, ${this.y}]`
+    toString() {
+        return `Vector Object : [${this.x}, ${this.y}]`
+    }
 
     /**
      * Return an array representation of the vector
      * @method
      * @returns {number[]}
      */
-    toArray = () => [this.x || 0, this.y || 0]
+    toArray() {
+        return [this.x || 0, this.y || 0]
+    }
 
     /**
      * Return a boolean if the vector is equal to another
@@ -280,7 +298,7 @@ export default class Vector {
      * @param {number} y 
      * @returns {boolean}
      */
-    isEqual = (x, y) => {
+    isEqual(x, y) {
         var a, b
         if (x instanceof Vector) {
             a = x.x || 0

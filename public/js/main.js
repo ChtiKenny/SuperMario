@@ -6,20 +6,7 @@ import { loadEntities } from './entities.js'
 import {setupKeyboard} from './input.js'
 import { createCollisionLayer } from './layers/collision.js'
 import { createDashboardLayer } from './layers/dashboard.js'
-import PlayerController from './traits/PlayerController.js'
-import Entity from './Entity.js'
-import Solid from './traits/Solid.js'
-
-function createPlayerEnv(playerEntity) {
-    const playerEnv = new Entity()
-    const playerControl = new PlayerController()
-    playerControl.checkpoint.set(64, 64)
-    playerControl.setPlayer(playerEntity)
-    playerEnv.addTrait(playerControl)
-    playerEnv.addTrait(new Solid())
-
-    return playerEnv
-}
+import { createPlayer, createPlayerEnv } from './player.js'
 
 async function main(canvas) {
     const context = canvas.getContext('2d')
@@ -36,7 +23,7 @@ async function main(canvas) {
 
     const camera = new Camera()
 
-    const mario = entityFactory.mario()
+    const mario = createPlayer(entityFactory.mario())
 
     const playerEnv = createPlayerEnv(mario)
     level.entities.add(playerEnv)
