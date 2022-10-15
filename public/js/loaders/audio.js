@@ -1,19 +1,6 @@
 import { loadJSON } from '../loaders.js'
 import AudioBoard from '../AudioBoard.js';
 
-// const audioContext = new AudioContext()
-// const audioBoard = new AudioBoard(audioContext)
-// const loadAudio = createAudioLoader(audioContext)
-// loadAudio('/audio/jump.ogg')
-// .then(buffer => {
-//     audioBoard.addAudio('jump', buffer)
-// })
-// loadAudio('/audio/stomp.ogg')
-// .then(buffer => {
-//     audioBoard.addAudio('stomp', buffer)
-// })
-
-
 export function loadAudioBoard(name, audioContext) {
     const loadAudio = createAudioLoader(audioContext)
     return loadJSON(`/sounds/${name}.json`)
