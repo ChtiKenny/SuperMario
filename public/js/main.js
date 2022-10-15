@@ -36,6 +36,7 @@ async function main(canvas) {
 
     const gameContext = {
         audioContext,
+        entityFactory,
         deltaTime : null,
     }
 

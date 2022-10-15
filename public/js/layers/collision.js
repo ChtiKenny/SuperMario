@@ -13,10 +13,9 @@ function createEntityLayers(entities) {
     }
 }
 
-function createTileCandidateLayers(tileCollider) {
+function createTileCandidateLayers(tileResolver) {
     const resolvedTiles = []
 
-    const tileResolver = tileCollider.tiles
     const tileSize = tileResolver.tileSize
 
     const getByIndexOriginal = tileResolver.getByIndex
@@ -41,11 +40,11 @@ function createTileCandidateLayers(tileCollider) {
 }
 
 export function createCollisionLayer(level) {
-    const drawTileCandidates = createTileCandidateLayers(level.tileCollider)
+    const drawTileCandidates = level.tileCollider.resolvers.map(createTileCandidateLayers)
     const drawBoundingBoxes = createEntityLayers(level.entities)
 
     return function drawCollision(context, camera) {
-        drawTileCandidates(context, camera)
+        drawTileCandidates.forEach(draw => draw(context, camera))
         drawBoundingBoxes(context, camera)
     }
 }

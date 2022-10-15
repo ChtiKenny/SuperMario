@@ -6,7 +6,7 @@ export function createDashboardLayer(font, playerEnv) {
 
     return function drawDashboard(context) {
         const {score, time} = playerEnv.playerController
-        font.print('MARIO', context, 16, LINE1)
+        font.print('CKENNY', context, 16, LINE1)
         font.print(score.toString().padStart(6, '0'), context, 16, LINE2)
 
         font.print('@x' + coins.toString().padStart(2, '2'), context, 96, LINE2)

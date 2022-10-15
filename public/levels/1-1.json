@@ -224,7 +224,7 @@
             "tiles" : [
                 {
                     "name": "bricks",
-                    "type": "ground",
+                    "type": "brick",
                     "ranges": [
                         [
                             27, 5,
@@ -272,7 +272,7 @@
                 },
                 {
                     "name": "chance",
-                    "type": "ground",
+                    "type": "chance",
                     "ranges": [
                         [2, 2],
                         [23, 9],

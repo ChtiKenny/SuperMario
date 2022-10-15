@@ -24,4 +24,10 @@ export default class Matrix {
             })
         })
     }
+
+    delete(x, y) {
+        const column = this.grid[x]
+
+        if (column) delete column[y]
+    }
 }
