@@ -7,6 +7,7 @@ export default class Player extends Trait {
         this.coins = 0
         this.lives = 3
         this.score = 0
+        this.name = "UNNAMED"
 
         this.listen(Stomper.EVENT_STOMP, () => {
             this.score += 100
