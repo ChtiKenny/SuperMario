@@ -19,7 +19,7 @@ async function main(canvas) {
         loadFont(),
     ])
 
-    const level = await createLevelLoader(entityFactory)('1-1')
+    const level = await createLevelLoader(entityFactory)('debug-coin')
 
     const camera = new Camera()
 
