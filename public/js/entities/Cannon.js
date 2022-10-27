@@ -5,16 +5,16 @@ import { findPlayers } from '../player.js'
 
 const HOLD_FIRE_THRESHOLD = 30
 
-export function loadCannon(audioContext, entitiesFactories) {
+export function loadCannon(audioContext) {
     return loadAudioBoard('cannon', audioContext)
     .then(audio =>{
-        return createCannonFactory(audio, entitiesFactories)
+        return createCannonFactory(audio)
     })
 }
 
-function createCannonFactory(audio, entitiesFactories) {
+function createCannonFactory(audio) {
 
-    function emitBullet(cannon, level) {
+    function emitBullet(cannon, gameContext, level) {
         let direction = 1
         for (const player of findPlayers(level)) {
             if (player.position.x > cannon.position.x - HOLD_FIRE_THRESHOLD &&
@@ -26,7 +26,7 @@ function createCannonFactory(audio, entitiesFactories) {
                 direction = -1
             }
         }
-        const bullet = entitiesFactories.bullet()
+        const bullet = gameContext.entityFactory.bullet()
 
         bullet.position.set(cannon.position)
         bullet.velocity.set(80 * direction, 0)

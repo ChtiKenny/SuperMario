@@ -1,4 +1,3 @@
-import Camera from './Camera.js'
 import Timer from './Timer.js'
 import { createLevelLoader } from './loaders/level.js'
 import { loadFont } from './loaders/font.js'
@@ -7,10 +6,12 @@ import {setupKeyboard} from './input.js'
 import { createCollisionLayer } from './layers/collision.js'
 import { createDashboardLayer } from './layers/dashboard.js'
 import { createPlayer, createPlayerEnv } from './player.js'
+import SceneRunner from './SceneRunner.js'
+import { createPlayerProgressLayer } from './layers/player-progress.js'
 
 async function main(canvas) {
-    const context = canvas.getContext('2d')
-    context.imageSmoothingEnabled = false
+    const videoContext = canvas.getContext('2d')
+    videoContext.imageSmoothingEnabled = false
 
     const audioContext = new AudioContext()
 
@@ -19,9 +20,14 @@ async function main(canvas) {
         loadFont(),
     ])
 
-    const level = await createLevelLoader(entityFactory)('debug-coin')
+    const loadLevel = await createLevelLoader(entityFactory)
 
-    const camera = new Camera()
+    const sceneRunner = new SceneRunner()
+    
+    const level = await loadLevel('debug-coin')
+
+    const playerProgressLayer = createPlayerProgressLayer(font, level)
+    const dashboardLayer = createDashboardLayer(font, level)
 
     const mario = createPlayer(entityFactory.mario())
     mario.player.name = "CKENNY"
@@ -32,13 +38,17 @@ async function main(canvas) {
     level.entities.add(playerEnv)
 
     level.compositor.layers.push(createCollisionLayer(level))
-    level.compositor.layers.push(createDashboardLayer(font, level))
+    level.compositor.layers.push(dashboardLayer)
+    level.compositor.layers.push(playerProgressLayer)
 
-    const input = setupKeyboard(mario)
-    input.listenTo(window)
+    const inputRouter = setupKeyboard(window)
+    inputRouter.addReceiver(mario)
+
+    sceneRunner.addScene(level)
 
     const gameContext = {
         audioContext,
+        videoContext,
         entityFactory,
         deltaTime : null,
     }
@@ -47,14 +57,12 @@ async function main(canvas) {
 
     timer.update = function update(deltaTime) {
         gameContext.deltaTime = deltaTime
-        level.update(gameContext)
-
-        camera.position.x = Math.max(0, mario.position.x - 100)
-
-        level.compositor.draw(context, camera)
+        sceneRunner.update(gameContext)
     }
 
     timer.start()
+
+    sceneRunner.runNext()
 }
 
 const canvas = document.getElementById('screen')

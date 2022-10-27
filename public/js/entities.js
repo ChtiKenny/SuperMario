@@ -19,7 +19,7 @@ export function loadEntities(audioContext) {
         loadGoomba(audioContext).then(addAs('goomba')),
         loadKoopa(audioContext) .then(addAs('koopa')),
         loadBullet(audioContext).then(addAs('bullet')),
-        loadCannon(audioContext, entitiesFactories) .then(addAs('cannon')),
+        loadCannon(audioContext) .then(addAs('cannon')),
 
         loadMarineSword(audioContext).then(addAs('marineSword')),
     ])
