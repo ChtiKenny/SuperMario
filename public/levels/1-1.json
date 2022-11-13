@@ -265,5 +265,13 @@
             "name" : "marineSword",
             "position" : [200, 0]
         }
+    ],
+
+    "triggers" : [
+        {
+            "position" : [64, 128],
+            "type" : "goto",
+            "name" : "1-2"
+        }
     ]
 }
