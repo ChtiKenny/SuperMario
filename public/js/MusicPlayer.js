@@ -6,7 +6,7 @@ export default class MusicPlayer {
     addTrack(name, url) {
         const audio = new Audio()
         audio.loop = true
-        audio.src = url
+        audio.src = '.' + url
         this.tracks.set(name, audio)
     }
 

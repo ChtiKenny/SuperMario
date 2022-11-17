@@ -3,14 +3,14 @@ import AudioBoard from '../AudioBoard.js';
 
 export function loadAudioBoard(name, audioContext) {
     const loadAudio = createAudioLoader(audioContext)
-    return loadJSON(`/sounds/${name}.json`)
+    return loadJSON(`./sounds/${name}.json`)
     .then(audioSheet => {
         const audioBoard = new AudioBoard(audioContext)
         const fx = audioSheet.fx
         const jobs = []
 
         Object.keys(fx).forEach(name => {
-            const url = fx[name].url
+            const url = '.' + fx[name].url
 
             const job =loadAudio(url).then(buffer => {
                 audioBoard.addAudio(name, buffer)
