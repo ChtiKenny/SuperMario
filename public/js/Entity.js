@@ -1,3 +1,4 @@
+import Trait from './Trait.js'
 import Vector from './Vector.js'
 import BoundingBox from './BoundingBox.js'
 import AudioBoard from './AudioBoard.js'
@@ -10,41 +11,6 @@ export const Sides = {
     RIGHT : Symbol('right'),
 }
 
-export class Trait {
-    static EVENT_TASK = Symbol('task')
-    constructor(name) {
-        this.NAME = name
-        this.listeners = []
-    }
-
-    listen(name, callback, count = Infinity) {
-        const listener = {name, callback, count}
-        this.listeners.push(listener)
-    }
-
-    finalize(entity) {
-        this.listeners = this.listeners.filter(listener => {
-            entity.events.process(listener.name, listener.callback)
-            return --listener.count
-        })
-    }
-
-    obstruct(){
-        
-    }
-
-    queue(task) {
-        this.listen(Trait.EVENT_TASK, task, 1)
-    }
-
-    collides(us, them){
-
-    }
-
-    update() {
-
-    }
-}
 export default class Entity {
     constructor() {
         this.audio = new AudioBoard()
@@ -59,12 +25,11 @@ export default class Entity {
         this.bounds = new BoundingBox(this.position, this.size, this.offset)
         this.lifetime = 0
 
-        this.traits = []
+        this.traits = new Map()
     }
 
     addTrait(trait) {
-        this.traits.push(trait)
-        this[trait.NAME] = trait
+        this.traits.set(trait.constructor, trait)
     }
 
     obstruct(side, match) {

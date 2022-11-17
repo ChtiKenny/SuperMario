@@ -1,10 +1,6 @@
-import { Trait, Sides } from '../Entity.js'
+import Trait from '../Trait.js'
 
-export default class Gravity extends Trait {
-    constructor() {
-        super('gravity')
-    }
-    
+export default class Gravity extends Trait {    
     update(entity, {deltaTime}, level) {
         entity.velocity.y += level.gravity * deltaTime
     }

@@ -1,10 +1,11 @@
-import { Trait, Sides } from '../Entity.js'
+import Trait from '../Trait.js'
+import Killable from './Killable.js'
 
 export default class Stomper extends Trait {
     static EVENT_STOMP = Symbol('stomp')
 
     constructor() {
-        super('stomper')
+        super()
         this.bounceSpeed = 400
 
     }
@@ -15,7 +16,7 @@ export default class Stomper extends Trait {
     }
 
     collides(us, them) {
-        if (!them.killable || them.killable.dead) return
+        if (!them.traits.has(Killable) || them.traits.get(Killable).dead) return
         if (us.velocity.y > them.velocity.y) {
             this.queue(() => this.bounce(us, them))
             us.sounds.add('stomp')

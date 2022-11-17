@@ -1,9 +1,11 @@
-import Entity, { Trait } from '../Entity.js'
+import Entity from '../Entity.js'
+import Trait from '../Trait.js'
 import { loadSpriteSheet } from '../loaders/sprite.js'
 import PendulumMove from '../traits/PendulumMove.js'
 import Killable from '../traits/Killable.js'
 import Solid from '../traits/Solid.js'
 import Physics from '../traits/Physics.js'
+import Stomper from '../traits/Stomper.js'
 
 export function loadGoomba() {
     return loadSpriteSheet('goomba')
@@ -11,18 +13,15 @@ export function loadGoomba() {
 }
 
 class Behavior extends Trait {
-    constructor() {
-        super('behavior')
-    }
-
     collides(us, them) {
-        if (us.killable.dead) return
+        if (us.traits.get(Killable).dead) return
 
-        if (!them.stomper) return
-        if (them.velocity.y <= us.velocity.y) return them.killable.kill()
+        if (!them.traits.has(Stomper)) return
+
+        if (them.velocity.y <= us.velocity.y) return them.traits.get(Killable).kill()
         
-        us.pendulumMove.speed = 0
-        us.killable.kill()
+        us.traits.get(PendulumMove).speed = 0
+        us.traits.get(Killable).kill()
     }
 }
 
@@ -31,7 +30,7 @@ function createGoombaFactory(sprite) {
     const walkAnim = sprite.animations.get('walk')
 
     function routeAnim(goomba) {
-        if (goomba.killable.dead) return 'flat'
+        if (goomba.traits.get(Killable).dead) return 'flat'
 
         return walkAnim(goomba.lifetime)
     }

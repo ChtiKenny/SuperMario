@@ -1,7 +1,7 @@
 import Scene from './Scene.js'
 
 
-export default class CompositionScene extends Scene {
+export default class TimedScene extends Scene {
     constructor() {
         super ()
         this.countdown = 2
