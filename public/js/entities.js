@@ -5,6 +5,7 @@ import { loadKoopaGreen, loadKoopaBlue } from './entities/Koopa.js'
 import { loadBullet } from './entities/Bullet.js'
 import { loadCannon } from './entities/Cannon.js'
 import { loadBrickShrapnel } from './entities/BrickShrapnel.js'
+import { loadPipePortal } from './entities/PipePortal.js'
 
 import { loadMarineSword } from './entities/marineSword.js'
 
@@ -53,6 +54,8 @@ export async function loadEntities(audioContext) {
             .then(addAs('bullet')),
         setup(loadCannon)
             .then(addAs('cannon')),
+        setup(loadPipePortal)
+            .then(addAs('pipe-portal')),
         setup(loadBrickShrapnel)
             .then(createPool(8))
             .then(addAs('brickShrapnel')),
