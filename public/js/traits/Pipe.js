@@ -11,6 +11,7 @@ function createTravelerState() {
 }
 
 export default class Pipe extends Trait {
+    static EVENT_PIPE_COMPLETE = Symbol('pipe complete')
     constructor() {
         super()
         this.duration = 1
@@ -45,6 +46,8 @@ export default class Pipe extends Trait {
             traveler.position.y = state.start.y + (state.end.y - state.start.y) * progress
             if (state.time > this.duration) {
                 this.travelers.delete(traveler)
+
+                level.events.emit(Pipe.EVENT_PIPE_COMPLETE, pipe, traveler)
             }
         }
     }
