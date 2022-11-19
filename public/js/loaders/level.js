@@ -6,6 +6,7 @@ import { loadMusicSheet } from './music.js';
 import { loadSpriteSheet } from './sprite.js';
 import { loadJSON } from '../loaders.js'
 import Entity from '../Entity.js';
+import Trait from '../Trait.js';
 import LevelTimer from '../traits/LevelTimer.js';
 import Trigger from '../traits/Trigger.js';
 
@@ -13,6 +14,33 @@ function createTimer() {
     const timer = new Entity()
     timer.addTrait(new LevelTimer())
     return timer
+}
+
+function createSpawner() {
+    class Spawner extends Trait {
+        constructor() {
+            super()
+            this.entities = []
+            this.offsetX = 64
+        }
+
+        addEntity(entity) {
+            this.entities.push(entity)
+            this.entities.sort((a, b) => a.position.x < b.position.x ? -1 : 1)
+        }
+
+        update(entity, gameContext, level) {
+            const cameraMaxX = level.camera.position.x + level.camera.size.x + this.offsetX
+            while (this.entities[0]) {
+                if (cameraMaxX > this.entities[0].position.x) {
+                    level.entities.add(this.entities.shift())
+                } else {
+                    break
+                }
+            }
+        }
+    }
+    return new Spawner()
 }
 
 function loadPattern(name) {
@@ -41,14 +69,19 @@ function setupBackgrounds(levelSpec, level, backgroundSprites, patterns) {
 }
 
 function setupEntities(levelSpec, level, entityFactory) {
+    const spawner = createSpawner()
     levelSpec.entities.forEach(entitySpec => {
         const {name, position: [x, y]} = entitySpec
         const createEntity = entityFactory[name]
         const entity = createEntity()
         entity.position.set(x, y)
 
-        level.entities.add(entity)
+        spawner.addEntity(entity)
     })
+
+    const entityProxy = new Entity()
+    entityProxy.addTrait(spawner)
+    level.entities.add(entityProxy)
 
     const spriteLayer = createSpriteLayer(level.entities)
     level.compositor.layers.push(spriteLayer)

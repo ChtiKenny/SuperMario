@@ -59,6 +59,7 @@ function createMarioFactory(sprite, audio) {
         mario.addTrait(new Physics())
 
         mario.traits.get(Killable).removeAfter = 0
+        mario.traits.get(Jump).velocity = 175
 
         mario.turbo = setTurboState
         mario.draw = drawMario
