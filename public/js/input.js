@@ -1,6 +1,7 @@
 import InputRouter from './InputRouter.js'
 import Keyboard from './KeyboardState.js'
 import Jump from './traits/Jump.js'
+import PipeTraveler from './traits/PipeTraveler.js'
 import Go from './traits/Go.js'
 
 const KEYMAP = {
@@ -30,12 +31,26 @@ export function setupKeyboard(window){
         router.route(entity => entity.turbo(keyState))
     })
 
+    input.addMapping(KEYMAP.UP, keyState => {
+        router.route(entity => entity.traits.get(PipeTraveler).direction.y += keyState ? -1 : 1)
+    })
+
+    input.addMapping(KEYMAP.UP, keyState => {
+        router.route(entity => entity.traits.get(PipeTraveler).direction.y += keyState ? 1 : -1)
+    })
+
     input.addMapping(KEYMAP.RIGHT, keyState => {
-        router.route(entity => entity.traits.get(Go).direction += keyState ? 1 : -1)
+        router.route(entity => {
+            entity.traits.get(Go).direction += keyState ? 1 : -1
+            entity.traits.get(PipeTraveler).direction.x += keyState ? 1 : -1
+        })
     })
 
     input.addMapping(KEYMAP.LEFT, keyState => {
-        router.route(entity => entity.traits.get(Go).direction += keyState ? -1 : 1)
+        router.route(entity => {
+            entity.traits.get(Go).direction += keyState ? -1 : 1
+            entity.traits.get(PipeTraveler).direction.x += keyState ? -1 : 1
+        })
     })
 
     return router
