@@ -97,7 +97,7 @@
     "animations": [
         {
             "name": "chance",
-            "frameLen": 0.16,
+            "frameLength": 0.16,
             "frames": [
                 "chance-1",
                 "chance-1",
@@ -108,7 +108,7 @@
         },
         {
             "name": "coin",
-            "frameLen": 0.16,
+            "frameLength": 0.16,
             "frames": [
                 "coin-1",
                 "coin-1",

@@ -71,7 +71,7 @@ function setupBackgrounds(levelSpec, level, backgroundSprites, patterns) {
 function setupEntities(levelSpec, level, entityFactory) {
     const spawner = createSpawner()
     levelSpec.entities.forEach(entitySpec => {
-        const {name, position: [x, y]} = entitySpec
+        const {name, pos: [x, y]} = entitySpec
         const createEntity = entityFactory[name]
         const entity = createEntity()
         entity.position.set(x, y)

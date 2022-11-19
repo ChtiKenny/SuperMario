@@ -1,5 +1,5 @@
 {
-    "imageURL": "./img/sprites.png",
+    "imageUrl": "./img/sprites.png",
 
     "frames": [
         {
@@ -91,7 +91,7 @@
     "animations": [
         {
             "name": "run",
-            "frameLen": 6,
+            "frameLength": 6,
             "frames": [
                 "run-1",
                 "run-2",
@@ -100,7 +100,7 @@
         },
         {
             "name": "climb",
-            "frameLen": 4,
+            "frameLength": 4,
             "frames": [
                 "climb-1",
                 "climb-2"
@@ -108,7 +108,7 @@
         },
         {
             "name": "swim-idle",
-            "frameLen": 4,
+            "frameLength": 4,
             "frames": [
                 "swim-1",
                 "swim-2"
@@ -116,7 +116,7 @@
         },
         {
             "name": "swim",
-            "frameLen": 6,
+            "frameLength": 6,
             "frames": [
                 "swim-3",
                 "swim-4",
@@ -125,7 +125,7 @@
         },
         {
             "name": "run-large",
-            "frameLen": 6,
+            "frameLength": 6,
             "frames": [
                 "run-1-large",
                 "run-2-large",

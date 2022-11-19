@@ -1,5 +1,5 @@
 {
-    "imageURL": "/img/sprites.png",
+    "imageUrl": "/img/sprites.png",
 
     "frames": [
         {
@@ -23,7 +23,7 @@
     "animations": [
         {
             "name": "spinning-brick",
-            "frameLen": 0.15,
+            "frameLength": 0.15,
             "frames": [
                 "brick-1",
                 "brick-2",
