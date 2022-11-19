@@ -5,6 +5,7 @@ import Go from '../traits/Go.js'
 import Killable from '../traits/Killable.js'
 import Solid from '../traits/Solid.js'
 import Physics from '../traits/Physics.js'
+import PipeTraveler from '../traits/PipeTraveler.js'
 import { loadAudioBoard } from '../loaders/audio.js'
 import { loadSpriteSheet } from '../loaders/sprite.js'
 
@@ -56,6 +57,7 @@ function createMarioFactory(sprite, audio) {
         mario.addTrait(new Killable())
         mario.addTrait(new Solid())
         mario.addTrait(new Physics())
+        mario.addTrait(new PipeTraveler())
 
         mario.traits.get(Killable).removeAfter = Infinity
         mario.traits.get(Jump).velocity = 175
