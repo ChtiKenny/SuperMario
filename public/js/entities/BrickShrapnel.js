@@ -1,6 +1,7 @@
 import Entity from '../Entity.js';
 import Gravity from '../traits/Gravity.js';
 import Velocity from '../traits/Velocity.js';
+import LifeLimit from '../traits/LifeLimit.js';
 import {loadSpriteSheet} from '../loaders/sprite.js';
 
 export function loadBrickShrapnel(audioContext) {
@@ -22,6 +23,7 @@ function createFactory(sprite) {
     return function createBrickShrapnel() {
         const entity = new Entity();
         entity.size.set(8, 8);
+        entity.addTrait(new LifeLimit())
         entity.addTrait(new Gravity());
         entity.addTrait(new Velocity());
         entity.draw = draw;
