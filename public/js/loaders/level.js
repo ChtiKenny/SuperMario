@@ -11,12 +11,6 @@ import LevelTimer from '../traits/LevelTimer.js';
 import Trigger from '../traits/Trigger.js';
 import Vector from '../Vector.js';
 
-function createTimer() {
-    const timer = new Entity()
-    timer.addTrait(new LevelTimer())
-    return timer
-}
-
 function createSpawner() {
     class Spawner extends Trait {
         constructor() {
@@ -49,9 +43,6 @@ function loadPattern(name) {
 }
 
 function setupBehavior(level) {
-    const timer = createTimer()
-    level.entities.add(timer)
-
     level.events.listen(LevelTimer.EVENT_TIMER_OK, () => {
         level.music.playTheme()
     })

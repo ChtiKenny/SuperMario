@@ -29,7 +29,7 @@ function createMarioFactory(sprite, audio) {
         
         const go = mario.traits.get(Go);
         if (go.distance > 0) {
-            if ((mario.vel.x > 0 && go.dir < 0) || (mario.vel.x < 0 && go.dir > 0)) {
+            if ((mario.velocity.x > 0 && go.dir < 0) || (mario.velocity.x < 0 && go.dir > 0)) {
                 return 'break'
             }
             return runAnim(mario.traits.get(Go).distance)
