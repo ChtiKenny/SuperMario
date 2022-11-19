@@ -27,6 +27,11 @@ function createMarioFactory(sprite, audio) {
     const runAnim = sprite.animations.get('run')
     function routeFrame(mario) {
         if (mario.traits.get(Jump).falling) return 'jump'
+
+        const pipeTraveler = mario.traits.get(PipeTraveler)
+        if (pipeTraveler.movement.x != 0) {
+            return runAnim(pipeTraveler.distance.x * 2)
+        }
         
         const go = mario.traits.get(Go);
         if (go.distance > 0) {

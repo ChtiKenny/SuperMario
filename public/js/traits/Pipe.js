@@ -12,6 +12,7 @@ function createTravelerState() {
 
 export default class Pipe extends Trait {
     static EVENT_PIPE_COMPLETE = Symbol('pipe complete')
+
     constructor() {
         super()
         this.duration = 1
@@ -27,6 +28,8 @@ export default class Pipe extends Trait {
         const pipeTraveler = traveler.traits.get(PipeTraveler)
         if (pipeTraveler.direction.isEqual(this.direction)) {
             pipe.sounds.add('pipe')
+
+            pipeTraveler.distance.set(0, 0)
             
             const state = createTravelerState()
             state.start.set(traveler.position)
@@ -44,8 +47,16 @@ export default class Pipe extends Trait {
             const progress = state.time / this.duration
             traveler.position.x = state.start.x + (state.end.x - state.start.x) * progress
             traveler.position.y = state.start.y + (state.end.y - state.start.y) * progress
+
+            const pipeTraveler = traveler.traits.get(PipeTraveler)
+            pipeTraveler.movement.set(this.direction)
+            pipeTraveler.distance.x = traveler.position.x - state.start.x
+            pipeTraveler.distance.y = traveler.position.y - state.start.y
+
             if (state.time > this.duration) {
                 this.travelers.delete(traveler)
+                pipeTraveler.movement.set(0, 0)
+                pipeTraveler.distance.set(0, 0)
 
                 level.events.emit(Pipe.EVENT_PIPE_COMPLETE, pipe, traveler)
             }
