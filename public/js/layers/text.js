@@ -7,7 +7,7 @@ export function createTextLayer(font, text) {
         const x = screenWidth / 2 - textWidth / 2
         const y = screenHeight / 2
 
-        font.print(text.toUpperCase(), context, x * size, y * size)
+        font.print(text, context, x * size, y * size)
     }
 }
 
