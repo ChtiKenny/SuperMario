@@ -7,23 +7,24 @@ import { loadCannon } from './entities/Cannon.js'
 
 import { loadMarineSword } from './entities/marineSword.js'
 
-export function loadEntities(audioContext) {
+export async function loadEntities(audioContext) {
     const entitiesFactories = {}
-
-    function addAs(name) {
-        return factory => entitiesFactories[name] = factory
+    
+    async function setup (loader, name) {
+        entitiesFactories[name] = await loader(audioContext)
     }
 
-    return Promise.all([
-        loadMario(audioContext) .then(addAs('mario' )),
-        loadGoombaBrown(audioContext).then(addAs('goomba-brown')),
-        loadGoombaBlue(audioContext).then(addAs('goomba-blue')),
-        loadKoopaGreen(audioContext) .then(addAs('koopa-green')),
-        loadKoopaBlue(audioContext) .then(addAs('koopa-blue')),
-        loadBullet(audioContext).then(addAs('bullet')),
-        loadCannon(audioContext) .then(addAs('cannon')),
+    await Promise.all([
+        setup(loadMario, 'mario' ),
+        setup(loadGoombaBrown, 'goomba-brown'),
+        setup(loadGoombaBlue, 'goomba-blue'),
+        setup(loadKoopaGreen, 'koopa-green'),
+        setup(loadKoopaBlue, 'koopa-blue'),
+        setup(loadBullet, 'bullet'),
+        setup(loadCannon, 'cannon'),
 
-        loadMarineSword(audioContext).then(addAs('marineSword')),
+        setup(loadMarineSword, 'marineSword'),
     ])
-    .then(() => entitiesFactories)
+
+    return entitiesFactories
 }
