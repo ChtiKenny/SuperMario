@@ -12,10 +12,10 @@ export function makePlayer(entity, name) {
 }
 
 export function bootstrap(entity, level) {
-    entity.traits.get(LevelTimer).reset();
+    entity.traits.get(LevelTimer).reset()
     entity.velocity.set(0, 0)
-    entity.position.set(level.checkpoints[0]);
-    level.entities.add(entity);
+    entity.position.set(level.checkpoints[0])
+    level.entities.add(entity)
 }
 
 export function* findPlayers(entities) {
