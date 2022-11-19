@@ -44,8 +44,6 @@ export default class Entity {
         })
     }
 
-    draw() {}
-
     finalize() {
         this.events.emit(Trait.EVENT_TASK, this)
 
