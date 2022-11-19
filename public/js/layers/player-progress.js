@@ -22,7 +22,7 @@ export function createPlayerProgressLayer(font, level) {
 
         font.print('WORLD ' + level.name, context, size * 12, size * 12)
 
-        font.print('x' + player.lives.toString().padStart(3, ' '),
+        font.print('×' + player.lives.toString().padStart(3, ' '),
             context, size * 16, size * 16)
 
         spriteBufferContext.clearRect(0, 0,
