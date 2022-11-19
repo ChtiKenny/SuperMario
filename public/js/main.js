@@ -5,7 +5,7 @@ import { loadEntities } from './entities.js'
 import {setupKeyboard} from './input.js'
 import { createCollisionLayer } from './layers/collision.js'
 import { createDashboardLayer } from './layers/dashboard.js'
-import { makePlayer, createPlayerEnv, findPlayers } from './player.js'
+import { makePlayer, findPlayers } from './player.js'
 import SceneRunner from './SceneRunner.js'
 import { createPlayerProgressLayer } from './layers/player-progress.js'
 import TimedScene from './TimedScene.js'
@@ -59,9 +59,6 @@ async function main(canvas) {
         mario.position.set(0, 0)
         mario.velocity.set(0, 0)
         level.entities.add(mario)
-
-        const playerEnv = createPlayerEnv(mario)
-        level.entities.add(playerEnv)
         
         const waitScreen = new TimedScene()
         waitScreen.compositor.layers.push(createColorLayer('#000'))
