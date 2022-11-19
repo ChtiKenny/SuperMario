@@ -26,11 +26,10 @@ function createMarioFactory(sprite, audio) {
     const runAnim = sprite.animations.get('run')
     function routeFrame(mario) {
         if (mario.traits.get(Jump).falling) return 'jump'
-        if (mario.traits.get(Go).distance > 0) {
-            if (
-                mario.velocity.x > 0 && mario.traits.get(Go).direction < 0
-                || mario.velocity.x < 0 && mario.traits.get(Go).direction > 0
-            ) {
+        
+        const go = mario.traits.get(Go);
+        if (go.distance > 0) {
+            if ((mario.vel.x > 0 && go.dir < 0) || (mario.vel.x < 0 && go.dir > 0)) {
                 return 'break'
             }
             return runAnim(mario.traits.get(Go).distance)
