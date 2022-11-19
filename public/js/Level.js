@@ -4,10 +4,15 @@ import EntityCollider from './EntityCollider.js'
 import MusicController from './MusicController.js'
 import { findPlayers } from './player.js'
 import Scene from './Scene.js'
+import clamp from './Clamp.js'
 
 function focusPlayer(level) {
     for (const player of findPlayers(level.entities)) {
-        level.camera.position.x = Math.max(0, player.position.x - 100)
+        level.camera.position.x = clamp(
+            player.position.x - 100,
+            level.camera.min.x,
+            level.camera.max.x - level.camera.size.x)
+        )
     }
 }
 

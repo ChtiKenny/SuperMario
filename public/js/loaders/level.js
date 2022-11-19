@@ -68,6 +68,22 @@ function setupBackgrounds(levelSpec, level, backgroundSprites, patterns) {
     })
 }
 
+function setupCamera(level) {
+    let maxX = 0;
+    let maxTileSize = 0;
+    for (const resolver of level.tileCollider.resolvers) {
+        if (resolver.tileSize > maxTileSize) {
+            maxTileSize = resolver.tileSize;
+        }
+        resolver.matrix.forEach((tile, x, y) => {
+            if (x > maxX) {
+                maxX = x;
+            }
+        });
+    }
+    level.camera.max.x = maxX * maxTileSize;
+}
+
 function setupEntities(levelSpec, level, entityFactory) {
     const spawner = createSpawner()
     levelSpec.entities.forEach(entitySpec => {
@@ -123,6 +139,7 @@ export function createLevelLoader(entityFactory) {
             setupEntities(levelSpec, level, entityFactory)
             setupTriggers(levelSpec, level)
             setupBehavior(level)
+            setupCamera(level)
 
             return level
         })
