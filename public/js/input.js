@@ -35,7 +35,7 @@ export function setupKeyboard(window){
         router.route(entity => entity.traits.get(PipeTraveler).direction.y += keyState ? -1 : 1)
     })
 
-    input.addMapping(KEYMAP.UP, keyState => {
+    input.addMapping(KEYMAP.DOWN, keyState => {
         router.route(entity => entity.traits.get(PipeTraveler).direction.y += keyState ? 1 : -1)
     })
 
