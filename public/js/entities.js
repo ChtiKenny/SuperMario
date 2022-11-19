@@ -8,6 +8,23 @@ import { loadBrickShrapnel } from './entities/BrickShrapnel.js'
 
 import { loadMarineSword } from './entities/marineSword.js'
 
+function createPool(size) {
+    const pool = []
+
+    return function createPooledFactory(factory) {
+        for (let i = 0; i < size; i++) {
+            pool.push(factory())
+        }
+
+        let count = 0
+        return function pooledFactory() {
+            const entity = pool[count++ % pool.length]
+            entity.lifetime = 0
+            return entity
+        }
+    }
+}
+
 export async function loadEntities(audioContext) {
     const entitiesFactories = {}
 
@@ -37,6 +54,7 @@ export async function loadEntities(audioContext) {
         setup(loadCannon)
             .then(addAs('cannon')),
         setup(loadBrickShrapnel)
+            .then(createPool(8))
             .then(addAs('brickShrapnel')),
 
         setup(loadMarineSword)
