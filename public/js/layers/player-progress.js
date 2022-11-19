@@ -20,7 +20,7 @@ export function createPlayerProgressLayer(font, level) {
         const entity = getPlayer(level.entities)
         const player = entity.traits.get(Player)
 
-        font.print('WORLD ' + level.name, context, size * 12, size * 12)
+        font.print('WORLD ' + level.name.toUpperCase(), context, size * 12, size * 12)
 
         font.print('x' + player.lives.toString().padStart(3, ' '),
             context, size * 16, size * 16)
