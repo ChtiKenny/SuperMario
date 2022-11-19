@@ -96,6 +96,9 @@ function setupEntities(levelSpec, level, entityFactory) {
     levelSpec.entities.forEach(entitySpec => {
         const {name, pos: [x, y]} = entitySpec
         const createEntity = entityFactory[name]
+
+        if (!createEntity) throw new Error(`No entity ${name}`)
+
         const entity = createEntity()
         entity.position.set(x, y)
 
