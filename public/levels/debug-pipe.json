@@ -3,7 +3,7 @@
     "musicSheet": "overworld",
     "patternSheet": "overworld-pattern",
     "checkpoints": [
-        [10, 192]
+        [64, 64]
     ],
 
     "layers": [

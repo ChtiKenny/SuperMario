@@ -10,6 +10,7 @@ export default class Player extends Trait {
         this.lives = 3
         this.score = 0
         this.name = 'UNNAMED'
+        this.world = 'UNKNOWN'
 
         this.listen(Stomper.EVENT_STOMP, () => {
             this.score += 100
