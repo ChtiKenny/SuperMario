@@ -56,7 +56,7 @@ async function main(canvas) {
         const playerProgressLayer = createPlayerProgressLayer(font, level)
         const dashboardLayer = createDashboardLayer(font, level)
     
-        mario.position.set(0, 0)
+        mario.position.set(level.checkpoints[0])
         mario.velocity.set(0, 0)
         level.entities.add(mario)
         

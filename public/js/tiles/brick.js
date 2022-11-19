@@ -1,5 +1,6 @@
 import { Sides } from '../Entity.js'
 import Vector from '../Vector.js'
+import Player from '../traits/Player.js'
 
 function centerEntity(entity, position) {
     entity.position.x = position.x - entity.size.x / 2
@@ -51,7 +52,7 @@ function handleY({entity, match, resolver, gameContext, level}) {
             entity.obstruct(Sides.BOTTOM, match)
         }
     } else if (entity.velocity.y < 0) {
-        if (entity.player) {
+        if (entity.traits.has(Player)) {
             const grid = resolver.matrix
             grid.delete(match.indexX, match.indexY)
             addShrapnel(level, gameContext, match)

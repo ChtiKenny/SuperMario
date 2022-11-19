@@ -12,7 +12,6 @@ function focusPlayer(level) {
             player.position.x - 100,
             level.camera.min.x,
             level.camera.max.x - level.camera.size.x)
-        )
     }
 }
 
@@ -23,6 +22,7 @@ export default class Level extends Scene {
         super()
 
         this.name = ''
+        this.checkpoints = []
         this.gravity = 1500
         this.totalTime = 0
 

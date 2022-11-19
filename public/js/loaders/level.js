@@ -9,6 +9,7 @@ import Entity from '../Entity.js';
 import Trait from '../Trait.js';
 import LevelTimer from '../traits/LevelTimer.js';
 import Trigger from '../traits/Trigger.js';
+import Vector from '../Vector.js';
 
 function createTimer() {
     const timer = new Entity()
@@ -84,6 +85,12 @@ function setupCamera(level) {
     level.camera.max.x = maxX * maxTileSize;
 }
 
+function setupCheckpoints(levelSpec, level) {
+    levelSpec.checkpoints.forEach(([x, y]) => {
+        level.checkpoints.push(new Vector(x, y))
+    })
+}
+
 function setupEntities(levelSpec, level, entityFactory) {
     const spawner = createSpawner()
     levelSpec.entities.forEach(entitySpec => {
@@ -115,7 +122,7 @@ function setupTriggers(levelSpec, level) {
 
         const entity = new Entity()
         entity.addTrait(trigger)
-        entity.position.set(triggerSpec.position)
+        entity.position.set(triggerSpec.pos)
         entity.size.set(64, 64)
         level.entities.add(entity)
     }
@@ -138,6 +145,7 @@ export function createLevelLoader(entityFactory) {
             setupBackgrounds(levelSpec, level, backgroundSprites, patterns)
             setupEntities(levelSpec, level, entityFactory)
             setupTriggers(levelSpec, level)
+            setupCheckpoints(levelSpec, level)
             setupBehavior(level)
             setupCamera(level)
 
