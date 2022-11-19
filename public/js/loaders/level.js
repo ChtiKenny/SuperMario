@@ -85,12 +85,12 @@ function setupCheckpoints(levelSpec, level) {
 function setupEntities(levelSpec, level, entityFactory) {
     const spawner = createSpawner()
     levelSpec.entities.forEach(entitySpec => {
-        const {name, pos: [x, y]} = entitySpec
+        const {name, pos: [x, y], props} = entitySpec
         const createEntity = entityFactory[name]
 
         if (!createEntity) throw new Error(`No entity ${name}`)
 
-        const entity = createEntity()
+        const entity = createEntity(props)
         entity.position.set(x, y)
 
         spawner.addEntity(entity)

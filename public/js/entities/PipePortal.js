@@ -20,14 +20,14 @@ export function loadPipePortal(audioContext) {
 }
 
 function createFactory(audio) {
-    return function createPipePortal() {
+    return function createPipePortal(props) {
         const pipe = new Pipe()
-        pipe.direction.set(Direction.DOWN)
+        pipe.direction.set(Direction[props.direction])
         const entity = new Entity()
         entity.audio = audio
         entity.size.set(24, 24)
         entity.addTrait(pipe)
-        
+
         return entity
     }
 }
