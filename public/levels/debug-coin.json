@@ -1,10 +1,10 @@
 {
     "spriteSheet": "overworld",
     "musicSheet": "silent",
-    
-    "patternSheet" : "overworld-pattern",
+    "patternSheet": "overworld-pattern",
+    "playerPosition": [40, 192],
 
-    "layers" : [
+    "layers": [
         {
             "tiles": [
                 {
@@ -25,21 +25,21 @@
                             13, 2
                         ]
                     ]
-                }              
+                }
             ]
         },
         {
-            "tiles" : [
+            "tiles": [
                 {
                     "name": "coin",
                     "type": "coin",
                     "ranges": [
-                        [6,100,8,5]
+                        [6, 100, 8, 5]
                     ]
                 }
             ]
         }
     ],
 
-    "entities" : []
+    "entities": []
 }

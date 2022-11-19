@@ -1,10 +1,10 @@
 {
     "spriteSheet": "overworld",
     "musicSheet": "silent",
-    
-    "patternSheet" : "overworld-pattern",
+    "patternSheet": "overworld-pattern",
+    "playerPosition": [40, 192],
 
-    "layers" : [
+    "layers": [
         {
             "tiles": [
                 {
@@ -25,18 +25,18 @@
                             13, 2
                         ]
                     ]
-                }              
+                }
             ]
         }
     ],
 
-    "entities" : [],
+    "entities": [],
 
-    "triggers" : [
+    "triggers": [
         {
             "type": "goto",
             "name": "1-1",
-            "position": [64, 64]
+            "pos": [64, 64]
         }
     ]
 }
