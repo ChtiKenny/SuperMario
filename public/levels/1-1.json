@@ -250,11 +250,11 @@
 
     "entities" : [
         {
-            "name" : "koopa",
+            "name" : "koopa-green",
             "position" : [260, 0]
         },
         {
-            "name" : "goomba",
+            "name" : "goomba-brown",
             "position" : [220, 0]
         },
         {

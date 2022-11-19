@@ -7,8 +7,13 @@ import Physics from '../traits/Physics.js'
 import Solid from '../traits/Solid.js'
 import Stomper from '../traits/Stomper.js'
 
-export function loadKoopa() {
-    return loadSpriteSheet('koopa')
+export function loadKoopaGreen() {
+    return loadSpriteSheet('koopa-green')
+    .then(createKoopaFactory)
+}
+
+export function loadKoopaBlue() {
+    return loadSpriteSheet('koopa-blue')
     .then(createKoopaFactory)
 }
 

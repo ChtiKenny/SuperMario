@@ -7,8 +7,13 @@ import Solid from '../traits/Solid.js'
 import Physics from '../traits/Physics.js'
 import Stomper from '../traits/Stomper.js'
 
-export function loadGoomba() {
-    return loadSpriteSheet('goomba')
+export function loadGoombaBrown() {
+    return loadSpriteSheet('goomba-brown')
+    .then(createGoombaFactory)
+}
+
+export function loadGoombaBlue() {
+    return loadSpriteSheet('goomba-blue')
     .then(createGoombaFactory)
 }
 
