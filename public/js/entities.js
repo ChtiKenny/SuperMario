@@ -7,7 +7,7 @@ import { loadCannon } from './entities/Cannon.js'
 import { loadBrickShrapnel } from './entities/BrickShrapnel.js'
 import { loadPipePortal } from './entities/PipePortal.js'
 
-import { loadMarineSword } from './entities/marineSword.js'
+import { loadMarineSword, loadMarineSwordBlue } from './entities/marineSword.js'
 
 function createPool(size) {
     const pool = []
@@ -62,6 +62,8 @@ export async function loadEntities(audioContext) {
 
         setup(loadMarineSword)
             .then(addAs('marineSword')),
+        setup(loadMarineSwordBlue)
+            .then(addAs('marineSwordBlue')),
     ])
 
     return entitiesFactories

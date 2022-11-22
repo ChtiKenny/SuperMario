@@ -125,7 +125,7 @@ async function main(canvas) {
 
     timer.start()
 
-    startWorld('debug-pipe')
+    startWorld('debug-marinesword')
 }
 
 const canvas = document.getElementById('screen')

@@ -1,0 +1,103 @@
+{
+    "spriteSheet": "overworld",
+    "musicSheet": "silent",
+    "patternSheet": "overworld-pattern",
+    "checkpoints": [
+        [0, 192]
+    ],
+
+    "layers": [
+        {
+            "tiles": [
+                {
+                    "name": "sky",
+                    "ranges": [
+                        [
+                            0, 212,
+                            0, 13
+                        ]
+                    ]
+                },
+                {
+                    "name": "ground",
+                    "type": "ground",
+                    "ranges": [
+                        [
+                            0, 212,
+                            13, 2
+                        ],
+                        [
+                            6, 9,
+                            6, 1
+                        ]
+                    ]
+                }
+            ]
+        },
+        {
+            "tiles": []
+        }
+    ],
+
+    "entities": [
+        
+        {
+            "name": "marineSwordBlue",
+            "pos": [32, 0],
+            "props": {
+                "status": "idle"
+            }
+        },
+        {
+            "name": "marineSword",
+            "pos": [72, 0],
+            "props": {
+                "status": "walk"
+            }
+        },
+        {
+            "name": "marineSword",
+            "pos": [112, 0],
+            "props": {
+                "status": "run"
+            }
+        },
+        {
+            "name": "marineSwordBlue",
+            "pos": [162, 0],
+            "props": {
+                "status": "attack"
+            }
+        },
+        {
+            "name": "marineSword",
+            "pos": [212, 0],
+            "props": {
+                "status": "die"
+            }
+        },
+        {
+            "name": "marineSwordBlue",
+            "pos": [112, 150],
+            "props": {
+                "status": "walk"
+            }
+        },
+        {
+            "name": "marineSword",
+            "pos": [162, 150],
+            "props": {
+                "status": "damage"
+            }
+        },
+        {
+            "name": "marineSwordBlue",
+            "pos": [212, 150],
+            "props": {
+                "status": "dead"
+            }
+        }
+    ],
+
+    "triggers": []
+}
