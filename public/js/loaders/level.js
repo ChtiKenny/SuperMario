@@ -75,6 +75,11 @@ function setupCamera(level) {
 }
 
 function setupCheckpoints(levelSpec, level) {
+    if (!levelSpec.checkpoints) {
+        level.checkpoints.push(new Vec2(0, 0));
+        return;
+    }
+    
     levelSpec.checkpoints.forEach(([x, y]) => {
         level.checkpoints.push(new Vector(x, y))
     })
@@ -89,7 +94,9 @@ function setupEntities(levelSpec, level, entityFactory) {
         if (!createEntity) throw new Error(`No entity ${name}`)
 
         const entity = createEntity(props)
-        entity.position.set(x, y)
+        // entity.position.set(x, y)
+        entity.bounds.left = x
+        entity.bounds.top = y
 
         spawner.addEntity(entity)
     })
